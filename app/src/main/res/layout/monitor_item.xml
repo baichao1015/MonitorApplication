@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <!-- 服务 -->
+    <TextView
+        android:layout_width="95dp"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:id="@+id/serve"
+        />
+    <View
+        android:layout_width="0.5dp"
+        android:layout_height="40dp"
+        android:background="#FF909090" />
+    <TextView
+        android:layout_width="95dp"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:id="@+id/path"
+        />
+    <View
+        android:layout_width="0.5dp"
+        android:layout_height="40dp"
+        android:background="#FF909090" />
+    <TextView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:id="@+id/time"
+        />
+    <View
+        android:layout_width="0.5dp"
+        android:layout_height="40dp"
+        android:background="#FF909090" />
+    <!-- 计数 -->
+    <TextView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:id="@+id/interval"
+        />
+    <!-- 阈值 -->
+    <View
+        android:layout_width="0.5dp"
+        android:layout_height="40dp"
+        android:background="#FF909090" />
+    <TextView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:id="@+id/threshold"
+        />
+    <!-- 接口人 -->
+    <View
+        android:layout_width="0.5dp"
+        android:layout_height="40dp"
+        android:background="#FF909090" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:id="@+id/manager"
+        />
+</LinearLayout>

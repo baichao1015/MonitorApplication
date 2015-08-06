@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <!-- 标题 -->
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="5dp">
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:src="@drawable/name" />
+
+                <TextView
+                    android:layout_width="70dp"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:text="接口人" />
+                <View
+                    android:layout_width="20dp"
+                    android:layout_height="40dp"/>
+                <View
+                    android:layout_width="1.5dp"
+                    android:layout_height="40dp"
+                    android:background="#FF909090" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:src="@drawable/tel" />
+
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:text="电话" />
+                <View
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"/>
+                <View
+                    android:layout_width="1.5dp"
+                    android:layout_height="40dp"
+                    android:background="#FF909090" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:src="@drawable/mail" />
+
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:text="邮箱" />
+                <View
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"/>
+                <View
+                    android:layout_width="1.5dp"
+                    android:layout_height="40dp"
+                    android:background="#FF909090" />
+            </LinearLayout>
+        </TableRow>
+    </TableLayout>
+    <View
+        android:layout_width="fill_parent"
+        android:background="#FF909090"
+        android:layout_height="1dp"/>
+    <!-- ListView控件 -->
+    <com.bangbang.baichao.monitorapplication.utils.PullToRefreshListView
+        android:id="@+id/listView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:paddingTop="2dp" />
+</LinearLayout>
