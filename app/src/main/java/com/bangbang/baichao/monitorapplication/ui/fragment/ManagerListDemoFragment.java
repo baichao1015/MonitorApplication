@@ -31,7 +31,7 @@ import java.util.HashMap;
 public class ManagerListDemoFragment extends Fragment {
 
     private View mLayoutRoot;
-    private int TOKEN;
+    private String TOKEN;
     private int POWER;
     private int PAGE = 1;
     protected final User user = User.getInstance();

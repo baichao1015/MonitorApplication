@@ -29,7 +29,7 @@ public class MonitorList2Fragment extends Fragment {
     private static final String TAG = "MonitorListFragment";
     private View mLayoutRoot;
     protected final User user = User.getInstance();
-    private int TOKEN;
+    private String TOKEN;
     private int POWER;
     private ListView mMonitorList;
     private int PAGE = 1;
@@ -67,18 +67,16 @@ public class MonitorList2Fragment extends Fragment {
                         int id = Integer.parseInt(data.getString("id"));
                         String serve1=data.getString("serve");
                         String path1=data.getString("path");
-                        String time1=data.getString("time");
                         String interval1=data.getString("interval");
                         String threshold1=data.getString("threshold");
                         String name1=data.getString("name");
-                        list.add(new MonitorVO(id,serve1,path1,time1,interval1,threshold1,name1));
+                        list.add(new MonitorVO(id,serve1,path1,interval1,threshold1,name1));
                     }
                     ArrayList<HashMap<String, Object>> list1 = new ArrayList<HashMap<String,Object>>();
                     for(MonitorVO monitor : list){
                         HashMap<String, Object> item = new HashMap<String, Object>();
                         item.put("serve", monitor.getServe());
                         item.put("path", monitor.getPath());
-                        item.put("time", monitor.getTime());
                         item.put("interval", monitor.getInterval());
                         item.put("threshold", monitor.getThreshold());
                         item.put("manager", monitor.getName());

@@ -4,16 +4,16 @@ package com.bangbang.baichao.monitorapplication.entity;
  * 用户信息
  * Created by 58 on 2015/7/27.
  */
-public class User implements Cloneable{
+public class User {
 
     private static User instance;
     private String mUserName;
     private String mPwd;
-    private int TOKEN;
+    private String TOKEN;
     private int POWER;
     // 是否需要自动登录，启动客户端首次登录后该值设置为true，掉线后自动重连登录
     private boolean mIsAotuLogin = false;
-
+    private User(){}
     public static User getInstance() {
         if (instance == null) {
             instance = new User();
@@ -32,11 +32,11 @@ public class User implements Cloneable{
         this.POWER = POWER;
     }
 
-    public int getTOKEN() {
+    public String getTOKEN() {
         return TOKEN;
     }
 
-    public void setTOKEN(int TOKEN) {
+    public void setTOKEN(String TOKEN) {
         this.TOKEN = TOKEN;
     }
 

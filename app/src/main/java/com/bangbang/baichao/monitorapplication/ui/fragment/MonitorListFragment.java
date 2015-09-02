@@ -34,7 +34,7 @@ public class MonitorListFragment extends Fragment {
     private static final String TAG = "MonitorListFragment";
     private View mLayoutRoot;
     protected final User user = User.getInstance();
-    private int TOKEN;
+    private String TOKEN;
     private int POWER;
     private ListView mMonitorList;
     private int PAGE = 1;
@@ -68,7 +68,7 @@ public class MonitorListFragment extends Fragment {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     JSONObject data;
-                    TOKEN = jsonObject.getInt("token");
+                    TOKEN = jsonObject.getString("token");
                     user.setTOKEN(TOKEN);
                     JSONArray monitorarray = new JSONArray(jsonObject.getString("data"));
                     for(int i=0;i<monitorarray.length();i++){
@@ -80,7 +80,7 @@ public class MonitorListFragment extends Fragment {
                         String interval1=data.getString("interval");
                         String threshold1=data.getString("threshold");
                         String name1=data.getString("name");
-                        list.add(new MonitorVO(id,serve1,path1,time1,interval1,threshold1,name1));
+                        list.add(new MonitorVO(id,serve1,path1,interval1,threshold1,name1));
                     }
                     if(mMonitorIDs != null){
                         mMonitorIDs.clear();
@@ -92,7 +92,6 @@ public class MonitorListFragment extends Fragment {
                         HashMap<String, Object> item = new HashMap<String, Object>();
                         item.put("serve", monitor.getServe());
                         item.put("path", monitor.getPath());
-                        item.put("time", monitor.getTime());
                         item.put("interval", monitor.getInterval());
                         item.put("threshold", monitor.getThreshold());
                         item.put("manager", monitor.getName());
@@ -150,7 +149,7 @@ public class MonitorListFragment extends Fragment {
         TOKEN = user.getTOKEN();
         POWER = user.getPOWER();
         AsyncHttpClient httpclient = new AsyncHttpClient();
-        String url = DELETE_MONITOR + "&id=" + id + "&uid=" + TOKEN;
+        String url = DELETE_MONITOR + "&id=" + id + "&token=" + TOKEN;
         httpclient.get(url, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
@@ -159,7 +158,7 @@ public class MonitorListFragment extends Fragment {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     int resultcode = jsonObject.getInt("code");
-                    TOKEN = jsonObject.getInt("token");
+                    TOKEN = jsonObject.getString("token");
                     user.setTOKEN(TOKEN);
                     if(resultcode == DELETE_MONITOR_SUCCESS){
                         Toast.makeText(getActivity().getApplicationContext(), "成功删除监控", Toast.LENGTH_SHORT).show();

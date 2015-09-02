@@ -1,6 +1,7 @@
 package com.bangbang.baichao.monitorapplication.ui.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 
 import com.bangbang.baichao.monitorapplication.R;
 import com.bangbang.baichao.monitorapplication.entity.User;
+import com.bangbang.baichao.monitorapplication.utils.HttpUtils;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
@@ -23,7 +25,7 @@ public class EditManagerActivity extends Activity {
     private EditText mail;
     private Button editconfirm;
     private Bundle bundle;
-    private int TOKEN;
+    private String TOKEN;
     private int POWER;
     private int id;
     protected final User user = User.getInstance();
@@ -58,8 +60,15 @@ public class EditManagerActivity extends Activity {
                             if ( code == 1 ) {
                                 Toast.makeText(getApplicationContext(), "修改成功", Toast.LENGTH_SHORT).show();
                                 finish();
-                            } else {
+                            } else if (code == 0){
                                 Toast.makeText(getApplicationContext(), "修改失败", Toast.LENGTH_SHORT).show();
+                            } else if (code == 2){
+                                Toast.makeText(getApplicationContext(), "账号异常", Toast.LENGTH_SHORT).show();
+                                HttpUtils.UserExit();
+                                user.init();
+                                Intent intent = new Intent(EditManagerActivity.this, LoginActivity.class);
+                                startActivity(intent);
+                                finish();
                             }
 
                         } catch (JSONException e) {

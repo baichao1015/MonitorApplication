@@ -21,7 +21,7 @@ import com.bangbang.baichao.monitorapplication.R;
 import com.bangbang.baichao.monitorapplication.entity.ManagerVO;
 import com.bangbang.baichao.monitorapplication.entity.User;
 import com.bangbang.baichao.monitorapplication.ui.activity.EditManagerActivity;
-import com.bangbang.baichao.monitorapplication.utils.PullToRefreshListView;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
@@ -48,7 +48,7 @@ import java.util.List;
 public class ManagerList1Fragment extends Fragment {
 
     private View mLayoutRoot;
-    private int TOKEN;
+    private String TOKEN;
     private int POWER;
     private int PAGE = 1;
     protected final User user = User.getInstance();
@@ -64,7 +64,7 @@ public class ManagerList1Fragment extends Fragment {
         mLayoutRoot = inflater.inflate(R.layout.managerlist, container, false);
         mManagerList = (PullToRefreshListView) mLayoutRoot.findViewById(R.id.listView);
         ids = getData();
-        adapter = new ManagerListAdapter(getActivity(),R.layout.manager_list_table,ids);
+        adapter = new ManagerListAdapter(getActivity(), R.layout.manager_list_table, ids);
         mManagerList.setAdapter(adapter);
 
 //        AsyncHttpClient httpclient = new AsyncHttpClient();
@@ -145,12 +145,12 @@ public class ManagerList1Fragment extends Fragment {
 
             }
         });
-        mManagerList.setOnRefreshListener(new PullToRefreshListView.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                new GetDataTask().execute();
-            }
-        });
+//        mManagerList.setOnRefreshListener(new PullToRefreshListView.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                new GetDataTask().execute();
+//            }
+//        });
         return mLayoutRoot;
     }
 
@@ -167,7 +167,7 @@ public class ManagerList1Fragment extends Fragment {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     JSONObject data;
-                    TOKEN = jsonObject.getInt("token");
+                    TOKEN = jsonObject.getString("token");
                     user.setTOKEN(TOKEN);
                     JSONArray managerArray = new JSONArray(jsonObject.getString("data"));
                     for (int i = 0; i < managerArray.length(); i++) {
@@ -228,7 +228,7 @@ public class ManagerList1Fragment extends Fragment {
                 }
                 JSONObject data;
                 jsonObject = new JSONObject(builder.toString());
-                TOKEN = jsonObject.getInt("token");
+                TOKEN = jsonObject.getString("token");
                 user.setTOKEN(TOKEN);
                 JSONArray managerArray = new JSONArray(jsonObject.getString("data"));
                 for (int i = 0; i < managerArray.length(); i++) {
@@ -273,10 +273,10 @@ public class ManagerList1Fragment extends Fragment {
         @Override
         protected void onPostExecute(List<ManagerVO> result) {
             //在头部增加新添内容
-                ids.clear();
-                ids.addAll(result);
-                adapter.notifyDataSetChanged();
-                mManagerList.onRefreshComplete();
+            ids.clear();
+            ids.addAll(result);
+            adapter.notifyDataSetChanged();
+            mManagerList.onRefreshComplete();
 
             super.onPostExecute(result);
         }

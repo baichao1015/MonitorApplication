@@ -7,11 +7,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 
 import com.bangbang.baichao.monitorapplication.R;
 import com.bangbang.baichao.monitorapplication.entity.User;
+import com.bangbang.baichao.monitorapplication.utils.HttpUtils;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
@@ -24,9 +26,10 @@ public class LoginActivity extends Activity {
     private Button mlogin;
     private EditText mUsername;
     private EditText mPassword;
+    private RadioButton rememberUser;
     protected final User user = User.getInstance();
     private String TAG = "LoginActivity";
-    private int TOKEN;
+    private String TOKEN;
     private int POWER;
     public static String LOGIN_REQUEST;
     public static final int LOGIN_SUCESS_CODE = 1;
@@ -38,6 +41,7 @@ public class LoginActivity extends Activity {
         mlogin = (Button) findViewById(R.id.loginBtn);
         mUsername = (EditText) findViewById(R.id.userName);
         mPassword = (EditText) findViewById(R.id.userPwd);
+        rememberUser = (RadioButton) findViewById(R.id.radioButton);
 
         mlogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,23 +56,32 @@ public class LoginActivity extends Activity {
                                           byte[] responseBody) {
                         Log.d(TAG, "连接服务器成功");
                         Toast.makeText(getApplicationContext(), "连接服务器成功", Toast.LENGTH_SHORT).show();
+
                         try {
                             JSONObject jsonObject = new JSONObject(new String(responseBody));
-                            int loginressult = jsonObject.getInt("code");
-                            TOKEN = jsonObject.getInt("token");
-                            user.setTOKEN(TOKEN);
+                            int code = jsonObject.getInt("code");
                             JSONObject loginmsg = new JSONObject(jsonObject.getString("data"));
                             POWER = loginmsg.getInt("power");
-                            if (loginressult == LOGIN_SUCESS_CODE) {
+                            if ( code == 1 ) {
+                                Toast.makeText(getApplicationContext(), "登录成功", Toast.LENGTH_SHORT).show();
+                                TOKEN = jsonObject.getString("token");
+                                Log.d(TAG, TOKEN);
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                 user.setTOKEN(TOKEN);
                                 user.setPOWER(POWER);
                                 startActivity(intent);
                                 finish();
-                            } else {
-                                Toast.makeText(getApplicationContext(), "用户名密码错误，请重新登陆", Toast.LENGTH_SHORT).show();
+                            } else if (code == 0){
+                                Toast.makeText(getApplicationContext(), "登录失败", Toast.LENGTH_SHORT).show();
                                 mUsername.setText("");
                                 mPassword.setText("");
+                            } else if (code == 2){
+                                Toast.makeText(getApplicationContext(), "账号异常", Toast.LENGTH_SHORT).show();
+                                HttpUtils.UserExit();
+                                user.init();
+                                Intent intent = new Intent(LoginActivity.this, LoginActivity.class);
+                                startActivity(intent);
+                                finish();
                             }
 
                         } catch (JSONException e) {
@@ -82,7 +95,7 @@ public class LoginActivity extends Activity {
                         // 输出错误信息
                         System.out.print("onFailure");
                         Log.d(TAG, "连接服务器失败");
-                        Toast.makeText(getApplicationContext(), "连接服务器失败", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "连接服务器失败"  + "\n"+ statusCode + "\n" + error, Toast.LENGTH_SHORT).show();
                     }
                 });
             }

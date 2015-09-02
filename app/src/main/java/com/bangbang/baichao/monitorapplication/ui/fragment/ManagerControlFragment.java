@@ -1,5 +1,6 @@
 package com.bangbang.baichao.monitorapplication.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -13,6 +14,9 @@ import android.widget.Toast;
 
 import com.bangbang.baichao.monitorapplication.R;
 import com.bangbang.baichao.monitorapplication.entity.User;
+import com.bangbang.baichao.monitorapplication.ui.activity.LoginActivity;
+import com.bangbang.baichao.monitorapplication.ui.activity.MainActivity;
+import com.bangbang.baichao.monitorapplication.utils.HttpUtils;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
@@ -26,7 +30,7 @@ public class ManagerControlFragment extends Fragment {
     private EditText mManagerTel;
     private EditText mManagerMail;
     private Button mAddManager;
-    private int TOKEN;
+    private String TOKEN;
     private int POWER;
     protected final User user = User.getInstance();
     private static int ADD_MANAGER_SUCCESS = 1;
@@ -66,6 +70,16 @@ public class ManagerControlFragment extends Fragment {
                 String managerName = mManagerName.getText().toString();
                 String managerTel = mManagerTel.getText().toString();
                 String managerMail = mManagerMail.getText().toString();
+                if (!managerTel.matches("1[358][0-9]{9,9}")){
+                    mManagerTel.setText("");
+                    Toast.makeText(getActivity().getApplicationContext(), "电话号码不合法，请重新输入", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (!managerMail.matches("[\\w!#$%&'*+/=?^_`{|}~-]+(?:\\.[\\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\\w](?:[\\w-]*[\\w])?\\.)+[\\w](?:[\\w-]*[\\w])?")){
+                    mManagerMail.setText("");
+                    Toast.makeText(getActivity().getApplicationContext(), "邮件格式不合法，请重新输入", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 TOKEN = user.getTOKEN();
                 POWER = user.getPOWER();
                 if (POWER == 0) {
@@ -80,7 +94,7 @@ public class ManagerControlFragment extends Fragment {
                             try {
                                 String response = new String(responseBody);
                                 JSONObject jsonObject = new JSONObject(response);
-                                TOKEN = jsonObject.getInt("token");
+                                TOKEN = jsonObject.getString("token");
                                 user.setTOKEN(TOKEN);
                                 int code = jsonObject.getInt("code");
                                 if (code == ADD_MANAGER_SUCCESS) {
@@ -89,9 +103,20 @@ public class ManagerControlFragment extends Fragment {
                                     mManagerName.setText("");
                                     mManagerTel.setText("");
                                     mManagerMail.setText("");
-                                } else {
-                                    Log.d(TAG, "添加接口人失败");
+                                } else if (code == 0){
+                                    Log.d(TAG, "添加接口人失败"+ "code="+ code );
                                     Toast.makeText(getActivity().getApplicationContext(), "添加接口人失败", Toast.LENGTH_SHORT).show();
+                                } else if (code == 2){
+                                    Toast.makeText(getActivity().getApplicationContext(), "账号异常", Toast.LENGTH_SHORT).show();
+                                    try {
+                                        HttpUtils.UserExit();
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                    user.init();
+                                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                                    startActivity(intent);
+                                    getActivity().finish();
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -112,8 +137,6 @@ public class ManagerControlFragment extends Fragment {
 
             }
         });
-
-
         return mLayoutRoot;
     }
 

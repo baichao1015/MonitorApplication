@@ -11,13 +11,11 @@ public class MonitorVO {
     private String path;
     private String interval;
     private String threshold;
-    private String time;
     private String name;
 
-    public MonitorVO(int id, String serve, String path, String interval, String threshold,String time, String name) {
+    public MonitorVO(int id, String serve, String path, String interval, String threshold, String name) {
         this.id = id;
         this.serve = serve;
-        this.time = time;
         this.interval = interval;
         this.threshold = threshold;
         this.path = path;
@@ -67,14 +65,6 @@ public class MonitorVO {
 
     public void setThreshold(String threshold) {
         this.threshold = threshold;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
     }
 
     public String getName() {

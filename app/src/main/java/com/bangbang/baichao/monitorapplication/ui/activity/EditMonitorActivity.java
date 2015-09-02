@@ -1,6 +1,7 @@
 package com.bangbang.baichao.monitorapplication.ui.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,12 +10,19 @@ import android.widget.Toast;
 
 import com.bangbang.baichao.monitorapplication.R;
 import com.bangbang.baichao.monitorapplication.entity.User;
+import com.bangbang.baichao.monitorapplication.utils.HttpUtils;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import org.apache.http.Header;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.IOException;
 
 public class EditMonitorActivity extends Activity {
     private EditText serve;
@@ -24,7 +32,7 @@ public class EditMonitorActivity extends Activity {
     private EditText name;
     private Button editconfirm;
     private Bundle bundle;
-    private int TOKEN;
+    private String TOKEN;
     private int POWER;
     private int id;
     protected final User user = User.getInstance();
@@ -60,11 +68,20 @@ public class EditMonitorActivity extends Activity {
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             int code = Integer.parseInt(jsonObject.getString("code"));
+                            TOKEN = jsonObject.getString("token");
+                            user.setTOKEN(TOKEN);
                             if ( code == 1 ) {
                                 Toast.makeText(getApplicationContext(), "修改成功", Toast.LENGTH_SHORT).show();
                                 finish();
-                            } else {
+                            } else if (code == 0){
                                 Toast.makeText(getApplicationContext(), "修改失败", Toast.LENGTH_SHORT).show();
+                            } else if (code == 2){
+                                Toast.makeText(getApplicationContext(), "账号异常", Toast.LENGTH_SHORT).show();
+                                HttpUtils.UserExit();
+                                user.init();
+                                Intent intent = new Intent(EditMonitorActivity.this, LoginActivity.class);
+                                startActivity(intent);
+                                finish();
                             }
 
                         } catch (JSONException e) {

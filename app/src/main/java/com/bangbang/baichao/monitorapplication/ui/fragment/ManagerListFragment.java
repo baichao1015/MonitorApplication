@@ -35,7 +35,7 @@ import java.util.HashMap;
 public class ManagerListFragment extends Fragment {
 
     private View mLayoutRoot;
-    private int TOKEN;
+    private String TOKEN;
     private int POWER;
     private int PAGE = 1;
     protected final User user = User.getInstance();
@@ -60,7 +60,7 @@ public class ManagerListFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mLayoutRoot = inflater.inflate(R.layout.managerlist, container, false);
+        mLayoutRoot = inflater.inflate(R.layout.manager_list, container, false);
         mManagerList = (ListView) mLayoutRoot.findViewById(R.id.listView);
         TOKEN = user.getTOKEN();
         POWER = user.getPOWER();
@@ -74,7 +74,7 @@ public class ManagerListFragment extends Fragment {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     JSONObject data;
-                    TOKEN = jsonObject.getInt("token");
+                    TOKEN = jsonObject.getString("token");
                     user.setTOKEN(TOKEN);
                     JSONArray managerArray = new JSONArray(jsonObject.getString("data"));
                     for (int i = 0; i < managerArray.length(); i++) {
@@ -162,7 +162,7 @@ public class ManagerListFragment extends Fragment {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     JSONObject data;
-                    TOKEN = jsonObject.getInt("token");
+                    TOKEN = jsonObject.getString("token");
                     user.setTOKEN(TOKEN);
                     JSONArray managerArray = new JSONArray(jsonObject.getString("data"));
                     for (int i = 0; i < managerArray.length(); i++) {

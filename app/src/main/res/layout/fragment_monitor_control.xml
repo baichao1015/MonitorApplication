@@ -5,12 +5,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:gravity="center">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
 
             <TextView
                 android:layout_width="60dp"
@@ -18,6 +20,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="15dp"
+                android:textColor="#51b2f9"
                 android:text="服务" />
 
             <EditText
@@ -37,13 +40,15 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
 
             <TextView
                 android:layout_width="60dp"
                 android:layout_height="40dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
+                android:textColor="#51b2f9"
                 android:layout_marginTop="15dp"
                 android:text="路径" />
 
@@ -65,7 +70,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
 
             <TextView
                 android:layout_width="60dp"
@@ -73,6 +79,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="15dp"
+                android:textColor="#51b2f9"
                 android:text="时间间隔"/>
 
             <EditText
@@ -89,7 +96,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
 
             <TextView
 
@@ -98,6 +106,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="15dp"
+                android:textColor="#51b2f9"
                 android:text="时间" />
 
             <EditText
@@ -118,7 +127,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
 
             <TextView
                 android:layout_width="60dp"
@@ -126,6 +136,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="15dp"
+                android:textColor="#51b2f9"
                 android:text="@string/shreshold" />
 
             <EditText
@@ -144,7 +155,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
 
             <TextView
                 android:layout_width="60dp"
@@ -152,11 +164,24 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="15dp"
+                android:textColor="#51b2f9"
                 android:text="接口人"/>
 
             <EditText
                 android:id="@+id/manager_select"
-                android:layout_width="200dp"
+                android:layout_width="180dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="15dp"
+                android:alpha="0.5"
+                android:drawablePadding="5dp"
+                android:paddingLeft="5dp">
+                <requestFocus />
+            </EditText>
+            <Spinner
+                android:id="@+id/manager_select1"
+                android:layout_width="20dp"
                 android:layout_height="40dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
@@ -166,16 +191,19 @@
                 android:paddingLeft="5dp">
 
                 <requestFocus />
-            </EditText>
+            </Spinner>
         </LinearLayout>
+
         <Button
             android:id="@+id/addMonitor"
-            android:layout_width="match_parent"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_marginTop="15dp"
-            android:text="@string/button_addMonitor" />
+            android:textColor="#ffffff"
+            android:text="@string/button_addMonitor"
+            android:background="@drawable/loginbuttonxml"/>
     </LinearLayout>
 
 </FrameLayout>

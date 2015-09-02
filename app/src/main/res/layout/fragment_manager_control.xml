@@ -7,24 +7,28 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginTop="100dp"
+        android:gravity="center_horizontal" >  >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center">
 
             <TextView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
+                android:textColor="#51b2f9"
                 android:layout_marginTop="15dp"
                 android:text="接口人" />
 
             <EditText
                 android:id="@+id/managerName"
-                android:layout_width="200dp"
+                android:layout_width="230dp"
                 android:layout_height="50dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
@@ -40,20 +44,22 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center">
 
             <TextView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
+                android:textColor="#51b2f9"
                 android:layout_marginTop="15dp"
                 android:text="手机号" />
 
             <EditText
                 android:id="@+id/managerTel"
                 android:inputType="phone"
-                android:layout_width="200dp"
+                android:layout_width="230dp"
                 android:layout_height="50dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
@@ -65,20 +71,22 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center">
 
             <TextView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
+                android:textColor="#51b2f9"
                 android:layout_marginTop="15dp"
                 android:text="邮箱" />
 
             <EditText
                 android:id="@+id/managerMail"
                 android:inputType="textEmailAddress"
-                android:layout_width="200dp"
+                android:layout_width="230dp"
                 android:layout_height="50dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
@@ -93,9 +101,12 @@
 
         <Button
             style="?android:attr/buttonStyleSmall"
-            android:layout_width="match_parent"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
             android:text="添加"
-            android:id="@+id/addManager" />
+            android:id="@+id/addManager"
+            android:textColor="#ffffff"
+            android:background="@drawable/loginbuttonxml"/>
     </LinearLayout>
 </FrameLayout>

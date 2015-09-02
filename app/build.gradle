@@ -1,5 +1,11 @@
 apply plugin: 'com.android.application'
 
+repositories {
+    maven {
+        url 'http://10.58.120.45:8081/artifactory/android-public'
+    }
+    mavenCentral()
+}
 android {
     compileSdkVersion 22
     buildToolsVersion "22.0.1"
@@ -23,4 +29,5 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:22.1.1'
     compile 'com.loopj.android:android-async-http:1.4.8'
+    compile project(':pulltorefresh')
 }

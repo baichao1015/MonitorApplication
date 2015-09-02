@@ -42,6 +42,16 @@ public class ManagerVO {
         this.mManagerTel = mManagerTel;
     }
 
+    @Override
+    public String toString() {
+        return "ManagerVO{" +
+                "ID=" + ID +
+                ", mMangerName='" + mMangerName + '\'' +
+                ", mManagerTel='" + mManagerTel + '\'' +
+                ", mManagerMail='" + mManagerMail + '\'' +
+                '}';
+    }
+
     public String getmManagerMail() {
         return mManagerMail;
     }

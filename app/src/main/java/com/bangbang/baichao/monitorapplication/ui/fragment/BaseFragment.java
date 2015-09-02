@@ -41,17 +41,17 @@ public class BaseFragment extends Fragment {
                 return;
             }
             BaseFragment fragment = mFragment.get();
-            if (fragment == null) {
-                return;
-            }
-            if(isDestroyed){
-                return;
-            }
-
-            if (msg == null || msg.obj == null) {
-                Log.d("handler", "proxy callback object is null");
-                return;
-            }
+//            if (fragment == null) {
+//                return;
+//            }
+//            if(isDestroyed){
+//                return;
+//            }
+//
+//            if (msg == null || msg.obj == null) {
+//                Log.d("handler", "proxy callback object is null");
+//                return;
+//            }
 
             if (msg.obj instanceof ProxyEntity) {
                 ProxyEntity entity = (ProxyEntity) msg.obj;

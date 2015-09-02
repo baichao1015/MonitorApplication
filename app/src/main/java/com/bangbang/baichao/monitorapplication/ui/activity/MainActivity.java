@@ -30,9 +30,11 @@ import android.view.MenuItem;
 import com.bangbang.baichao.monitorapplication.R;
 import com.bangbang.baichao.monitorapplication.entity.User;
 import com.bangbang.baichao.monitorapplication.ui.fragment.ManagerControlFragment;
-import com.bangbang.baichao.monitorapplication.ui.fragment.ManagerListFragment;
+import com.bangbang.baichao.monitorapplication.ui.pulltorefreshlistfragment.TrackOfMonitorFragment;
+import com.bangbang.baichao.monitorapplication.ui.pulltorefreshlistfragment.ManagerList2Fragment;
 import com.bangbang.baichao.monitorapplication.ui.fragment.MonitorControlFragment;
-import com.bangbang.baichao.monitorapplication.ui.fragment.MonitorListFragment;
+import com.bangbang.baichao.monitorapplication.ui.pulltorefreshlistfragment.MonitorPulltorefreshListFragment;
+import com.bangbang.baichao.monitorapplication.utils.HttpUtils;
 
 
 public class MainActivity extends ActionBarActivity implements ActionBar.TabListener {
@@ -65,36 +67,17 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-        // Create the adapter that will return a fragment for each of the three primary sections
-        // of the app.
         mAppSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager());
-
-        // Set up the action bar.
         final ActionBar actionBar = getSupportActionBar();
-
-        // Specify that the Home/Up button should not be enabled, since there is no hierarchical
-        // parent.
-
-        // Specify that we will be displaying tabs in the action bar.
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
-        // Set up the ViewPager, attaching the adapter and setting up a listener for when the
-        // user swipes between sections.
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mAppSectionsPagerAdapter);
         mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
-                // When swiping between different app sections, select the corresponding tab.
-                // We can also use ActionBar.Tab#select() to do this if we have a reference to the
-                // Tab.
                 actionBar.setSelectedNavigationItem(position);
             }
         });
-
-        // For each of the sections in the app, add a tab to the action bar.
 
         actionBar.addTab(
                 actionBar.newTab()
@@ -118,10 +101,6 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
                         .setTabListener(this));
     }
 
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to one of the primary
-     * sections of the app.
-     */
     public static class AppSectionsPagerAdapter extends FragmentPagerAdapter {
 
         public AppSectionsPagerAdapter(FragmentManager fm) {
@@ -132,22 +111,17 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         public Fragment getItem(int i) {
             switch (i) {
                 case 0:
-                    // The first section of the app is the most interesting -- it offers
-                    // a launchpad into the other demonstrations in this example application.
-                    MonitorListFragment monitorListFragment = new MonitorListFragment();
-                    return monitorListFragment;
+                    return new MonitorPulltorefreshListFragment();
                 case 1:
-                    MonitorControlFragment monitorControlFragment = new MonitorControlFragment();
-                    return monitorControlFragment;
+                    return new MonitorControlFragment();
                 case 2:
-                    ManagerListFragment managerList1Fragment = new ManagerListFragment();
-                    return managerList1Fragment;
+                    return new ManagerList2Fragment();
                 case 3:
-                    ManagerControlFragment managerControlFragment = new ManagerControlFragment();
-                    return managerControlFragment;
+                    return  new ManagerControlFragment();
                 case 4:
+                    return new TrackOfMonitorFragment();
                 default:
-                    return new MonitorListFragment();
+                    return new MonitorPulltorefreshListFragment();
             }
         }
 
@@ -179,6 +153,11 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.logout) {
+            try {
+                HttpUtils.UserExit();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             user.init();
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);

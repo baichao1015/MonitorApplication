@@ -13,7 +13,7 @@ import android.widget.Toast;
 import com.bangbang.baichao.monitorapplication.R;
 import com.bangbang.baichao.monitorapplication.entity.MonitorVO;
 import com.bangbang.baichao.monitorapplication.entity.User;
-import com.bangbang.baichao.monitorapplication.utils.PullToRefreshListView;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
@@ -30,7 +30,7 @@ public class MonitorList1Fragment extends Fragment {
     private static final String TAG = "MonitorListFragment";
     private View mLayoutRoot;
     protected final User user = User.getInstance();
-    private int TOKEN;
+    private String TOKEN;
     private int POWER;
     private PullToRefreshListView mMonitorList;
     private int PAGE = 1;
@@ -47,12 +47,12 @@ public class MonitorList1Fragment extends Fragment {
         // Inflate the layout for this fragment
         mLayoutRoot = inflater.inflate(R.layout.fragment_monitor_list1, container, false);
         mMonitorList = (PullToRefreshListView) mLayoutRoot.findViewById(R.id.monitorlistView);
-        mMonitorList.setOnRefreshListener(new PullToRefreshListView.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                new GetDataTask().execute();
-            }
-        });
+//        mMonitorList.setOnRefreshListener(new PullToRefreshListView.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                new GetDataTask().execute();
+//            }
+//        });
         getMonitorList();
         mMonitorList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -92,17 +92,15 @@ public class MonitorList1Fragment extends Fragment {
                             int id = Integer.parseInt(data.getString("id"));
                             String serve1 = data.getString("serve");
                             String path1 = data.getString("path");
-                            String time1 = data.getString("time");
                             String interval1 = data.getString("interval");
                             String threshold1 = data.getString("threshold");
                             String name1 = data.getString("name");
-                            list.add(new MonitorVO(id, serve1, path1, time1, interval1, threshold1, name1));
+                            list.add(new MonitorVO(id, serve1, path1, interval1, threshold1, name1));
                         }
                         for (MonitorVO monitor : list) {
                             HashMap<String, Object> item = new HashMap<String, Object>();
                             item.put("serve", monitor.getServe());
                             item.put("path", monitor.getPath());
-                            item.put("time", monitor.getTime());
                             item.put("interval", monitor.getInterval());
                             item.put("threshold", monitor.getThreshold());
                             item.put("manager", monitor.getName());
@@ -157,14 +155,13 @@ public class MonitorList1Fragment extends Fragment {
                         String interval1 = data.getString("interval");
                         String threshold1 = data.getString("threshold");
                         String name1 = data.getString("name");
-                        list.add(new MonitorVO(id, serve1, path1, time1, interval1, threshold1, name1));
+                        list.add(new MonitorVO(id, serve1, path1, interval1, threshold1, name1));
                     }
                     ArrayList<HashMap<String, Object>> list1 = new ArrayList<HashMap<String, Object>>();
                     for (MonitorVO monitor : list) {
                         HashMap<String, Object> item = new HashMap<String, Object>();
                         item.put("serve", monitor.getServe());
                         item.put("path", monitor.getPath());
-                        item.put("time", monitor.getTime());
                         item.put("interval", monitor.getInterval());
                         item.put("threshold", monitor.getThreshold());
                         item.put("manager", monitor.getName());
